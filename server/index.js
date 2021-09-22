@@ -7,7 +7,7 @@ const fs = require('fs');
 const debug = require('debug');
 const log = debug('*');
 
-const page404 = fs.readFileSync('./public/404.html'); // Подгтовим заранее страницу 404, чтобы не чистать ее раждый раз
+// const page404 = fs.readFileSync('./public/404.html'); // Подгтовим заранее страницу 404, чтобы не чистать ее раждый раз
 
 const server = http.createServer((req, res) => {
     const path = req.url === '/' ? '/index.html' : req.url; // GET <url> HTTP/1.1
@@ -16,7 +16,7 @@ const server = http.createServer((req, res) => {
         log('read file done!')
         if (error) { 
             res.statusCode = 404;
-            data = page404; 
+            data = ''; 
         }
         res.write(data);
         res.end(); // Ответ нужно обязательно завершить чтобы клиент не ждал бесконечно.
