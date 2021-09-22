@@ -1,0 +1,10 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.header {
+    color: rgb(148, 98, 89);
+    font-family: sans-serif;
+    font-size: 100px;
+}
