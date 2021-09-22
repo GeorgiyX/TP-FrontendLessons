@@ -1,3 +1,5 @@
+'use strict';
+
 const makeBlue = () => {
     const header = document.querySelector('.header');
     header.style.color = "#0000cc";
