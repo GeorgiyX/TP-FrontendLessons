@@ -2,22 +2,25 @@
 
 const root = document.getElementById('root');
 
-const configApp = {
+const urls = {
+    home : {
+        open: showMenu
+    },
+    
     signup: {
-        href: '/signup',
-        name: 'Registration'
+        open: showSignUp
     },
+
     login: {
-        href: '/login',
-        name: 'Login'
+        open: null
     },
+
     profile: {
-        href: '/profile',
-        name: 'Profile'
+        open: null
     },
-    abount: {
-        href: '/about',
-        name: 'About'
+
+    about: {
+        open: showAbout
     }
 }
 
@@ -25,20 +28,26 @@ function showMenu() {
     root.innerHTML = '';
     /* В map передается массив из ключа и объека-значения. 
     Мы его деструктим [], затем также деструктим объект {} */
-    Object.entries(configApp).forEach(([key, { href, name }]) => {
-        const menuElement = document.createElement('a'); // Созадем тег 
-        menuElement.href = href;
-        menuElement.textContent = name;
-        menuElement.id = key;
+    Object.entries(urls).forEach(([key, link]) => {
+        const menuElement = document.createElement('a');
+        menuElement.href = key;
+        menuElement.textContent = key.toUpperCase();
         root.appendChild(menuElement);
     });
+}
 
-    const signup = document.getElementById('signup');
-    signup.addEventListener('click', (event) => {
-        event.preventDefault(); // Отключаем default поведение - переход по ссылке
-        showSignUp();
-    });
+function showAbout() {
+    root.innerHTML = '';
+    
+    const text = document.createElement('p');
+    text.textContent = 'Это учебный код. Изучаем как организовать работу SPA.'
 
+    const back = document.createElement('a');
+    back.href = "home";
+    back.textContent = "Назад";
+
+    root.appendChild(text);
+    root.appendChild(back);
 }
 
 const createFormInput = (type, text, name) => {
@@ -62,19 +71,25 @@ function showSignUp() {
     const btn = createFormInput('submit', 'Зарегистрироваться!', 'submit')
     form.appendChild(btn);
     btn.addEventListener('click', (event) => {
+        event.preventDefault();
         console.log('submint click!');
     });
 
     const back = document.createElement('a');
     form.appendChild(back);
     back.textContent = 'Назад';
-    back.href = '/menu';
-    back.addEventListener('click', (event) => {
-        event.preventDefault();
-        showMenu();
-    });
+    back.href = 'home';
 
     root.appendChild(form);
 }
 
 showMenu();
+
+// Один обработчик для все ссылок страницы
+root.addEventListener('click', (event) => {
+    const {target} = event; //деструктим, берем только поле targer
+    if (target instanceof HTMLAnchorElement) {
+        event.preventDefault();
+        urls[target.href.split('/').reverse()[0]].open();
+    }
+})
