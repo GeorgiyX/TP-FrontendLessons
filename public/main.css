@@ -3,6 +3,32 @@
     padding: 0px;
 }
 
-a {
+a,
+input {
     display: block;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#root {
+    margin-top: 100px;
+    width: 50%;
+    padding: 20px;
+    border: dashed 2px blueviolet;
+    border-radius: 20px;
+    background-color: rgba(137, 43, 226, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+#root:hover {
+    transform: scale(1.05, 1.05);
+    box-shadow: 0 0 50px;
 }
